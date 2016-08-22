@@ -37,7 +37,7 @@
 
 <div id="wrapper">
 
-    <%@ include file="../include/nav.jsp"%>
+    <%@ include file="../include/nav.jsp" %>
 
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -46,7 +46,8 @@
                 <div class="col-lg-12">
                     <c:if test="${not empty message}">
                         <div class="alert ${message.state}">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
                                 ${message.message}
                         </div>
                     </c:if>
@@ -104,15 +105,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -133,7 +134,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title"><i class="fa fa-plus"></i> 新增客户</h4>
             </div>
             <div class="modal-body">
@@ -176,10 +178,12 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 <!-- jQuery -->
@@ -197,93 +201,94 @@
 <script src="/static/js/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="/static/js/datatables/media/js/dataTables.bootstrap.min.js"></script>
 <script>
-    $(function(){
+    $(function () {
 
         var table = $("#cust_table").DataTable({
             "processing": true, //loding效果
-            "serverSide":true, //服务端处理
-            "searching":false,//不使用自带的搜索
-            "order":[[1,'desc']],//默认排序方式
-            "lengthMenu":[10,25,50,100],//每页显示数据条数菜单
-            "ordering":false,
-            "ajax":{
-                url:"/customer/customers.json", //获取数据的URL
-                type:"get", //获取数据的方式
-                data:function(d){
+            "serverSide": true, //服务端处理
+            "searching": false,//不使用自带的搜索
+            "order": [[1, 'desc']],//默认排序方式
+            "lengthMenu": [10, 25, 50, 100],//每页显示数据条数菜单
+            "ordering": false,
+            "ajax": {
+                url: "/customer/customers.json", //获取数据的URL
+                type: "get", //获取数据的方式
+                data: function (d) {
                     d.seaName = $("#seaName").val();
                     d.seaTel = $("#seaTel").val();
                     d.seaState = $("#seaState").val();
                 }
             },
-            "columns":[  //返回的JSON中的对象和列的对应关系
-                {"data":function(row){
-                   return "<input type='checkbox'>";
-                }},
-                {"data":"id","name":"id"},
-                {"data":function(row){
-                    var result = "<a href='/customer/"+row.id+"'>"+row.custname+"</a>";
-                    if(!row.userid) {
-                        result += " <i class='fa fa-unlock text-muted'></i>";
-                    }
-                    return result;
-
-
-
-                },"name":"custname"},
-                {"data":"contact","name":"contact"},
-                {"data":"tel","name":"tel"},
-                {"data":"progress"},
-                {"data":"progresstime"}
-            ],
-            "columnDefs":[ //具体列的定义
+            "columns": [  //返回的JSON中的对象和列的对应关系
                 {
-                    "targets":[1],
-                    "visible":false
+                    "data": function (row) {
+                        return "<input type='checkbox'>";
+                    }
+                },
+                {"data": "id", "name": "id"},
+                {
+                    "data": function (row) {
+                        var result = "<a href='/customer/" + row.id + "'>" + row.custname + "</a>";
+                        if (!row.userid) {
+                            result += " <i class='fa fa-unlock text-muted'></i>";
+                        }
+                        return result;
+
+
+                    }, "name": "custname"
+                },
+                {"data": "contact", "name": "contact"},
+                {"data": "tel", "name": "tel"},
+                {"data": "progress"},
+                {"data": "progresstime"}
+            ],
+            "columnDefs": [ //具体列的定义
+                {
+                    "targets": [1],
+                    "visible": false
                 }
             ],
-            "language":{
-                "lengthMenu":"显示 _MENU_ 条记录",
-                "search":"搜索:",
+            "language": {
+                "lengthMenu": "显示 _MENU_ 条记录",
+                "search": "搜索:",
                 "info": "从 _START_ 到 _END_ 共 _TOTAL_ 条记录",
-                "processing":"加载中...",
-                "zeroRecords":"暂无数据",
+                "processing": "加载中...",
+                "zeroRecords": "暂无数据",
                 "infoEmpty": "从 0 到 0 共 0 条记录",
-                "infoFiltered":"(从 _MAX_ 条记录中读取)",
+                "infoFiltered": "(从 _MAX_ 条记录中读取)",
                 "paginate": {
-                    "first":      "首页",
-                    "last":       "末页",
-                    "next":       "下一页",
-                    "previous":   "上一页"
+                    "first": "首页",
+                    "last": "末页",
+                    "next": "下一页",
+                    "previous": "上一页"
                 }
             }
         });
 
         //自定义搜索
-        $("#searchBtn").click(function(){
+        $("#searchBtn").click(function () {
             table.draw(); // DataTables会自动的执行查询
         });
 
 
         //保存新客户
-        $("#newCustomer").click(function(){
+        $("#newCustomer").click(function () {
             $("#newCustomer_Modal").modal("show");
         });
 
-        $("#saveBtn").click(function(){
-            $.post("/customer/new",$("#newCustForm").serialize()).done(function(result){
-                if(result == "success") {
+        $("#saveBtn").click(function () {
+            $.post("/customer/new", $("#newCustForm").serialize()).done(function (result) {
+                if (result == "success") {
                     $("#newCustForm")[0].reset();
                     $("#newCustomer_Modal").modal('hide');
                     table.ajax.reload();
                 }
-            }).fail(function(){
+            }).fail(function () {
                 alert("添加新客户异常");
             });
         });
 
     });
 </script>
-
 </body>
-
 </html>

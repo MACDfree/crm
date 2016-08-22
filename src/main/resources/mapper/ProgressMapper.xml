@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.kaishengit.mapper.ProgressMapper">
+<mapper namespace="me.macd.mapper.ProgressMapper">
 
     <cache/>
     <insert id="save" parameterType="Progress" useGeneratedKeys="true" keyProperty="id">
@@ -27,7 +27,7 @@
             </if>
         </where>
     </select>
-    <select id="findByParam" resultType="com.kaishengit.pojo.Progress" resultMap="progressMap">
+    <select id="findByParam" resultType="me.macd.pojo.Progress" resultMap="progressMap">
         SELECT * FROM t_progress
         <where>
             <if test="userid != null and userid != ''">
@@ -51,7 +51,7 @@
         limit ${start},${end}
 
     </select>
-    <select id="findByCustId" resultType="com.kaishengit.pojo.Progress" resultMap="progressMap">
+    <select id="findByCustId" resultType="me.macd.pojo.Progress" resultMap="progressMap">
         SELECT * FROM t_progress WHERE custid = #{id} order by id desc
     </select>
 
@@ -62,9 +62,9 @@
         <result property="mark" column="mark"/>
         <result property="progress" column="progress"/>
         <result property="userid" column="userid"/>
-        <association property="user" column="userid" javaType="User" select="com.kaishengit.mapper.UserMapper.findById"/>
-        <association property="customer" column="custid" javaType="Customer" select="com.kaishengit.mapper.CustomerMapper.findById"/>
-        <collection property="progressFileList" column="id" ofType="ProgressFile" select="com.kaishengit.mapper.ProgressFileMapper.findByProgressId"/>
+        <association property="user" column="userid" javaType="User" select="me.macd.mapper.UserMapper.findById"/>
+        <association property="customer" column="custid" javaType="Customer" select="me.macd.mapper.CustomerMapper.findById"/>
+        <collection property="progressFileList" column="id" ofType="ProgressFile" select="me.macd.mapper.ProgressFileMapper.findByProgressId"/>
     </resultMap>
 
 

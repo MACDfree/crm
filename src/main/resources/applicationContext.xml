@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!--开启基于注解的Bean管理和DI-->
-    <context:component-scan base-package="com.kaishengit">
+    <context:component-scan base-package="me.macd">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -49,13 +49,11 @@
     <!--MyBaits-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="typeAliasesPackage" value="com.kaishengit.pojo"/>
+        <property name="typeAliasesPackage" value="me.macd.pojo"/>
         <property name="mapperLocations" value="classpath*:mapper/*.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.kaishengit.mapper"/>
+        <property name="basePackage" value="me.macd.mapper"/>
     </bean>
-
-
 </beans>

@@ -62,7 +62,7 @@
                                 <a href="javascript:;" id="delLink" class="btn btn-xs btn-danger pull-right"
                                    style="margin-left:15px;">删除</a>
                             </shiro:hasRole>
-                            <a href="" class="btn btn-xs btn-info pull-right" style="margin-left:15px;">编辑</a>
+                            <a href="javascript:;" id="editCustomer" class="btn btn-xs btn-info pull-right" style="margin-left:15px;">编辑</a>
                             <c:if test="${not empty customer.userid}">
                                 <a href="javascript:;" id="publicCustomer" class="btn btn-xs btn-warning pull-right"
                                    style="margin-left:15px;">公开客户</a>
@@ -331,6 +331,8 @@
                 window.location.href = "/customer/del/${customer.id}";
             }
         });
+
+        $("#editCustomer").click(function(){});
 
         <c:if test="${not empty customer.userid}">
         //公开客户

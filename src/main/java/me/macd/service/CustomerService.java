@@ -43,6 +43,16 @@ public class CustomerService {
     }
 
     /**
+     * 修改客户
+     * @param customer
+     */
+    public void editCustomer(Customer customer) {
+        customerMapper.update(customer);
+
+        logger.info("{}-修改客户-{}",ShiroUtil.getCurrentUserName(),customer.getCustname());
+    }
+
+    /**
      * 根据DataTables的查询方式获取 客户列表
      * @param param
      * @return

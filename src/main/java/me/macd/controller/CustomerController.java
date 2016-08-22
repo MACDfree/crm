@@ -105,6 +105,17 @@ public class CustomerController {
         return "success";
     }
 
+    /**
+     * 修改客户
+     * @return
+     */
+    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    public String editCust(Customer customer, RedirectAttributes redirectAttributes) {
+        customerService.editCustomer(customer);
+        redirectAttributes.addFlashAttribute("message",new Message(Message.SUCCESS,"添加成功"));
+        return "redirect:/customer/"+customer.getId();
+    }
+
 
     /**
      * 查看客户资料

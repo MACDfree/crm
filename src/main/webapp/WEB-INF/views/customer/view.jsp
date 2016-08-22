@@ -5,7 +5,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,11 +38,8 @@
         }
     </style>
 </head>
-
 <body>
-
 <div id="wrapper">
-
     <%@ include file="../include/nav.jsp" %>
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -62,14 +58,14 @@
                                 <a href="javascript:;" id="delLink" class="btn btn-xs btn-danger pull-right"
                                    style="margin-left:15px;">删除</a>
                             </shiro:hasRole>
-                            <a href="javascript:;" id="editCustomer" class="btn btn-xs btn-info pull-right" style="margin-left:15px;">编辑</a>
+                            <a href="javascript:;" id="editCustomer" class="btn btn-xs btn-info pull-right"
+                               style="margin-left:15px;">编辑</a>
                             <c:if test="${not empty customer.userid}">
                                 <a href="javascript:;" id="publicCustomer" class="btn btn-xs btn-warning pull-right"
                                    style="margin-left:15px;">公开客户</a>
                                 <a href="javascript:;" id="tranCustomer" class="btn btn-xs btn-primary pull-right"
                                    style="margin-left:15px;">转交客户</a>
                             </c:if>
-
                         </div>
                         <div class="panel-body">
                             <table class="table table">
@@ -98,7 +94,6 @@
                                     <td>${customer.mark}</td>
                                 </tr>
                             </table>
-
                         </div>
                     </div>
 
@@ -107,7 +102,9 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     跟进信息
-                                    <button id="addProgress" class="btn btn-default btn-xs pull-right"> <i class="fa fa-plus"></i> 添加跟进信息</button>
+                                    <button id="addProgress" class="btn btn-default btn-xs pull-right"><i
+                                            class="fa fa-plus"></i> 添加跟进信息
+                                    </button>
                                 </div>
                                 <div class="panel-body">
                                     <c:if test="${empty progressList}">
@@ -193,7 +190,8 @@
                                                 </c:if>
                                                 <c:forEach items="${taskList}" var="task">
                                                     <li>
-                                                            <input type="checkbox" rel="${task.id}" class="ckTask"> ${task.task}
+                                                        <input type="checkbox" rel="${task.id}"
+                                                               class="ckTask"> ${task.task}
                                                     </li>
                                                 </c:forEach>
 
@@ -210,15 +208,13 @@
                                                     <li>暂时没有文件</li>
                                                 </c:if>
                                                 <c:forEach items="${fileList}" var="file">
-                                                    <li><a href="${file.path}?attname=${file.filename}">${file.filename}</a></li>
+                                                    <li>
+                                                        <a href="${file.path}?attname=${file.filename}">${file.filename}</a>
+                                                    </li>
                                                 </c:forEach>
                                             </ul>
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
                             </div>
                         </div>
@@ -256,15 +252,19 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="tranBtn">转交</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <div class="modal fade" id="progressModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">新增跟进记录</h4>
             </div>
             <div class="modal-body">
@@ -289,7 +289,10 @@
                         <textarea name="mark" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="form-group" id="fileControls">
-                        <label>相关文件 <button type="button" class="btn btn-default btn-xs" id="addFileControl"><i class="fa fa-plus"></i></button></label>
+                        <label>相关文件
+                            <button type="button" class="btn btn-default btn-xs" id="addFileControl"><i
+                                    class="fa fa-plus"></i></button>
+                        </label>
                         <input type="file" name="file" class="form-control">
                     </div>
                 </form>
@@ -298,9 +301,72 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="editCustomer_Modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><i class="fa fa-plus"></i> 修改客户</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/customer/edit" method="post" id="editCustForm">
+                    <div class="form-group">
+                        <label>客户名称</label>
+                        <input class="hidden" value="${customer.id}" name="id" />
+                        <input class="hidden" value="${customer.userid}" name="userid" />
+                        <input class="hidden" value="${customer.progress}" name="progress" />
+                        <input class="hidden" value="${customer.progresstime}" name="progresstime" />
+                        <input class="hidden" value="${customer.createtime}" name="createtime" />
+                        <input type="text" class="form-control" placeholder="" value="${customer.custname}" name="custname">
+                    </div>
+                    <div class="form-group">
+                        <label>联系人</label>
+                        <input type="text" class="form-control" placeholder="" value="${customer.contact}" name="contact">
+                    </div>
+                    <div class="form-group">
+                        <label>联系电话</label>
+                        <input type="text" class="form-control" placeholder="" value="${customer.tel}" name="tel">
+                    </div>
+                    <div class="form-group">
+                        <label>地址</label>
+                        <input type="text" class="form-control" placeholder="" value="${customer.address}" name="address">
+                    </div>
+                    <div class="form-group">
+                        <label>电子邮件</label>
+                        <input type="text" class="form-control" placeholder="" value="${customer.email}" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>微信</label>
+                        <input type="text" class="form-control" placeholder="" value="${customer.wechar}" name="wechar">
+                    </div>
+                    <div class="form-group">
+                        <label>QQ</label>
+                        <input type="text" class="form-control" placeholder="" value="${customer.qq}" name="qq">
+                    </div>
+                    <div class="form-group">
+                        <label>备注</label>
+                        <input type="text" class="form-control" placeholder="" value="${customer.mark}" name="mark">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveBtn2">修改保存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!-- jQuery -->
 <script src="/static/js/jquery.min.js"></script>
@@ -317,10 +383,10 @@
     $(function () {
 
         //添加跟进信息
-        $("#addProgress").click(function(){
+        $("#addProgress").click(function () {
             $("#progressModal").modal('show');
         });
-        $("#saveBtn").click(function(){
+        $("#saveBtn").click(function () {
             $("#newForm").submit();
         });
 
@@ -332,7 +398,13 @@
             }
         });
 
-        $("#editCustomer").click(function(){});
+        //修改客户
+        $("#editCustomer").click(function () {
+            $("#editCustomer_Modal").modal("show");
+        });
+        $("#saveBtn2").click(function () {
+            $("#editCustForm").submit();
+        });
 
         <c:if test="${not empty customer.userid}">
         //公开客户
@@ -375,14 +447,14 @@
         </c:if>
 
         //将待办任务完成
-        $(".ckTask").click(function(){
+        $(".ckTask").click(function () {
             var $this = $(this);
             var id = $this.attr("rel");
-            $.post("/customer/change/taskstate",{"taskId":id,"state":"true"}).done(function(result){
-                if(result == "success") {
+            $.post("/customer/change/taskstate", {"taskId": id, "state": "true"}).done(function (result) {
+                if (result == "success") {
                     $this.parent().remove();
                 }
-            }).fail(function(){
+            }).fail(function () {
                 alert("操作失败");
             });
 

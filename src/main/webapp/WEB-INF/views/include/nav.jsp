@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="home.html"><i class="fa fa-coffee"></i> CRM</a>
+        <a class="navbar-brand" href="home"><i class="fa fa-coffee"></i> CRM</a>
     </div>
     <!-- /.navbar-header -->
 

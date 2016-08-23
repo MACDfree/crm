@@ -49,7 +49,7 @@
                                     class="fa fa-plus"></i> 新增</a>
                         </div>
                         <div class="panel-body">
-                            <table class="table" id="userTable">
+                            <table class="table table-hover" id="userTable">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -244,7 +244,7 @@
         var dt = $("#userTable").DataTable({
             "processing": true, //loding效果
             "serverSide": true, //服务端处理
-            "searchDelay": 1000,//搜索延迟
+            "searchDelay": 500,//搜索延迟
             "order": [[0, 'desc']],//默认排序方式
             "lengthMenu": [5, 10, 25, 50, 100],//每页显示数据条数菜单
             "ajax": {
@@ -260,7 +260,7 @@
                         if (row.state == "禁用") {
                             return "<span class='label label-danger'>" + row.state + "</span>";
                         } else {
-                            return row.state;
+                            return "<span class='label label-success'>" + row.state + "</span>";
                         }
                     }, "name": "state"
                 },
@@ -326,7 +326,6 @@
                     }).fail(function () {
                         alert("添加时出现异常");
                     });
-
         });
 
         //删除用户

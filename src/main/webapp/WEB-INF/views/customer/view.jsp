@@ -47,6 +47,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="page-header"><i class="fa fa-user"></i> 客户信息详情</h4>
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             客户信息
@@ -292,6 +293,8 @@
                         <label>相关文件
                             <button type="button" class="btn btn-default btn-xs" id="addFileControl"><i
                                     class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-default btn-xs" id="removeFileControl"><i
+                                    class="fa fa-minus"></i></button>
                         </label>
                         <input type="file" name="file" class="form-control">
                     </div>
@@ -320,16 +323,18 @@
                 <form action="/customer/edit" method="post" id="editCustForm">
                     <div class="form-group">
                         <label>客户名称</label>
-                        <input class="hidden" value="${customer.id}" name="id" />
-                        <input class="hidden" value="${customer.userid}" name="userid" />
-                        <input class="hidden" value="${customer.progress}" name="progress" />
-                        <input class="hidden" value="${customer.progresstime}" name="progresstime" />
-                        <input class="hidden" value="${customer.createtime}" name="createtime" />
-                        <input type="text" class="form-control" placeholder="" value="${customer.custname}" name="custname">
+                        <input class="hidden" value="${customer.id}" name="id"/>
+                        <input class="hidden" value="${customer.userid}" name="userid"/>
+                        <input class="hidden" value="${customer.progress}" name="progress"/>
+                        <input class="hidden" value="${customer.progresstime}" name="progresstime"/>
+                        <input class="hidden" value="${customer.createtime}" name="createtime"/>
+                        <input type="text" class="form-control" placeholder="" value="${customer.custname}"
+                               name="custname">
                     </div>
                     <div class="form-group">
                         <label>联系人</label>
-                        <input type="text" class="form-control" placeholder="" value="${customer.contact}" name="contact">
+                        <input type="text" class="form-control" placeholder="" value="${customer.contact}"
+                               name="contact">
                     </div>
                     <div class="form-group">
                         <label>联系电话</label>
@@ -337,7 +342,8 @@
                     </div>
                     <div class="form-group">
                         <label>地址</label>
-                        <input type="text" class="form-control" placeholder="" value="${customer.address}" name="address">
+                        <input type="text" class="form-control" placeholder="" value="${customer.address}"
+                               name="address">
                     </div>
                     <div class="form-group">
                         <label>电子邮件</label>
@@ -442,8 +448,6 @@
 
             }
         });
-
-
         </c:if>
 
         //将待办任务完成
@@ -457,9 +461,19 @@
             }).fail(function () {
                 alert("操作失败");
             });
-
         });
 
+        // 新增附件上传
+        $("#addFileControl").click(function () {
+            var html = "<input type='file' name='file' class='form-control' style='margin-top:8px;'/>";
+            $("#fileControls").append(html);
+        });
+
+        // 移除附件上传
+        $("#removeFileControl").click(function () {
+            var inputs = $("#fileControls>input");
+            inputs[inputs.length - 1].remove();
+        });
 
     });
 </script>

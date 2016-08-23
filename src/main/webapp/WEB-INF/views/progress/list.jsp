@@ -3,9 +3,7 @@
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,15 +30,10 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
-
 <body>
-
 <div id="wrapper">
-
-    <%@ include file="../include/nav.jsp"%>
-
+    <%@ include file="../include/nav.jsp" %>
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -49,14 +42,13 @@
                     <h4 class="page-header">
                         <i class="fa fa-fax"></i> 跟进列表
                     </h4>
-
                     <c:if test="${not empty message}">
                         <div class="alert ${message.state}">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
                                 ${message.message}
                         </div>
                     </c:if>
-
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-search"></i> 搜索
@@ -66,7 +58,8 @@
                                 <select name="userid" class="form-control">
                                     <option value="">所属员工</option>
                                     <c:forEach items="${userList}" var="user">
-                                        <option ${userid == user.id ? 'selected' : ''} value="${user.id}">${user.username}</option>
+                                        <option ${userid == user.id ? 'selected' : ''}
+                                                value="${user.id}">${user.username}</option>
                                     </c:forEach>
                                 </select>
                                 <select name="progress" class="form-control">
@@ -85,19 +78,18 @@
                                     <option ${date == '本月' ? 'selected' : ''} value="本月">本月</option>
                                     <option ${date == '更早' ? 'selected' : ''} value="更早">更早</option>
                                 </select>
-
-                                <input type="text" name="context" class="form-control" placeholder="跟进内容" value="${context}">
-
+                                <input type="text" name="context" class="form-control" placeholder="跟进内容"
+                                       value="${context}">
                                 <button class="btn btn-info">搜索</button>
                             </form>
-
                         </div>
                     </div>
-
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-list"></i> 跟进列表
-                            <button class="btn btn-primary pull-right btn-xs" id="newBtn"><i class="fa fa-plus"></i> 新增跟进信息</button>
+                            <button class="btn btn-primary pull-right btn-xs" id="newBtn"><i class="fa fa-plus"></i>
+                                新增跟进信息
+                            </button>
                         </div>
                         <div class="panel-body">
                             <c:forEach items="${page.items}" var="pro">
@@ -114,7 +106,9 @@
                                         </c:choose>
 
                                         <div class="panel-heading">
-                                            <i class="fa fa-calendar"></i> ${pro.monthAndDay} - <span class="text-muted">${pro.user.username}</span> - ${pro.customer.custname}
+                                            <i class="fa fa-calendar"></i> ${pro.monthAndDay} - <span
+                                                class="text-muted">${pro.user.username}</span>
+                                            - ${pro.customer.custname}
                                             <c:choose>
                                                 <c:when test="${pro.progress == '初访'}">
                                                     <span class="label label-default pull-right">${pro.progress}</span>
@@ -132,7 +126,6 @@
                                                     <span class="label label-danger pull-right">${pro.progress}</span>
                                                 </c:when>
                                             </c:choose>
-
                                         </div>
                                         <div class="panel-body">
                                                 ${pro.mark}
@@ -159,114 +152,120 @@
                                                 </shiro:hasRole>
                                             </c:otherwise>
                                         </c:choose>
-
-
                                     </div>
                                     </c:forEach>
+                                </div>
+                            </div>
+                            <ul id="pagination" class="pagination-sm pull-right"></ul>
                         </div>
+                        <!-- /.col-lg-12 -->
                     </div>
-
-                    <ul id="pagination" class="pagination-sm pull-right"></ul>
+                    <!-- /.row -->
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /.container-fluid -->
             </div>
-            <!-- /.row -->
+            <!-- /#page-wrapper -->
         </div>
-        <!-- /.container-fluid -->
-    </div>
-    <!-- /#page-wrapper -->
-
-</div>
-<!-- /#wrapper -->
-
-<div class="modal fade" id="newModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">新增跟进记录</h4>
+        <!-- /#wrapper -->
+        <div class="modal fade" id="newModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">新增跟进记录</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/progress/new" method="post" id="newForm" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label>选择客户</label>
+                                <select name="custid" class="form-control">
+                                    <c:forEach items="${customerList}" var="cust">
+                                        <option value="${cust.id}">${cust.custname}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>选择进度</label>
+                                <select name="progress" class="form-control">
+                                    <option value="初访">初访</option>
+                                    <option value="意向">意向</option>
+                                    <option value="报价">报价</option>
+                                    <option value="成交">成交</option>
+                                    <option value="暂时搁置">暂时搁置</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>内容</label>
+                                <textarea name="mark" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="form-group" id="fileControls">
+                                <label>相关文件
+                                    <button type="button" class="btn btn-default btn-xs" id="addFileControl"><i
+                                            class="fa fa-plus"></i></button>
+                                    <button type="button" class="btn btn-default btn-xs" id="removeFileControl"><i
+                                            class="fa fa-minus"></i></button>
+                                </label>
+                                <input type="file" name="file" class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
             </div>
-            <div class="modal-body">
-                <form action="/progress/new" method="post" id="newForm" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>选择客户</label>
-                        <select name="custid" class="form-control">
-                            <c:forEach items="${customerList}" var="cust">
-                                <option value="${cust.id}">${cust.custname}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>选择进度</label>
-                        <select name="progress" class="form-control">
-                            <option value="初访">初访</option>
-                            <option value="意向">意向</option>
-                            <option value="报价">报价</option>
-                            <option value="成交">成交</option>
-                            <option value="暂时搁置">暂时搁置</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>内容</label>
-                        <textarea name="mark" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="form-group" id="fileControls">
-                        <label>相关文件 <button type="button" class="btn btn-default btn-xs" id="addFileControl"><i class="fa fa-plus"></i></button></label>
-                        <input type="file" name="file" class="form-control">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="saveBtn">保存</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- jQuery -->
+        <script src="/static/js/jquery.min.js"></script>
 
+        <!-- Bootstrap Core JavaScript -->
+        <script src="/static/js/bootstrap.min.js"></script>
 
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="/static/js/metisMenu/metisMenu.min.js"></script>
 
+        <!-- Custom Theme JavaScript -->
+        <script src="/static/js/sb-admin-2.js"></script>
+        <script src="/static/js/jquery.twbsPagination.min.js"></script>
+        <script>
+            $(function () {
+                $("#pagination").twbsPagination({
+                    totalPages:${page.totalPages},
+                    visiblePages: 5,
+                    first: "首页",
+                    last: "末页",
+                    next: "下一页",
+                    prev: "上一页",
+                    href: "?p={{number}}&userid=${userid}&progress=" + encodeURIComponent('${progress}') + "&date=" + encodeURIComponent('${date}') + "&context=" + encodeURIComponent('${context}')
+                });
 
-<!-- jQuery -->
-<script src="/static/js/jquery.min.js"></script>
+                $("#newBtn").click(function () {
+                    $("#newModal").modal('show');
+                });
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/static/js/bootstrap.min.js"></script>
+                // 新增附件上传
+                $("#addFileControl").click(function () {
+                    var html = "<input type='file' name='file' class='form-control' style='margin-top:8px;'/>";
+                    $("#fileControls").append(html);
+                });
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/static/js/metisMenu/metisMenu.min.js"></script>
+                // 移除附件上传
+                $("#removeFileControl").click(function(){
+                    var inputs = $("#fileControls>input");
+                    inputs[inputs.length-1].remove();
+                });
 
-<!-- Custom Theme JavaScript -->
-<script src="/static/js/sb-admin-2.js"></script>
-<script src="/static/js/jquery.twbsPagination.min.js"></script>
-<script>
-    $(function(){
+                $("#saveBtn").click(function () {
+                    $("#newForm").submit();
+                });
 
-        $("#pagination").twbsPagination({
-            totalPages:${page.totalPages},
-            visiblePages:5,
-            first:"首页",
-            last:"末页",
-            next:"下一页",
-            prev:"上一页",
-            href:"?p={{number}}&userid=${userid}&progress="+encodeURIComponent('${progress}')+"&date="+encodeURIComponent('${date}')+"&context="+encodeURIComponent('${context}')
-        });
-
-        $("#newBtn").click(function(){
-            $("#newModal").modal('show');
-        });
-
-        $("#addFileControl").click(function(){
-            var html = "<input type='file' name='file' class='form-control' style='margin-top:8px;'/>";
-            $("#fileControls").append(html);
-        });
-
-        $("#saveBtn").click(function(){
-            $("#newForm").submit();
-        });
-
-    });
-</script>
+            });
+        </script>
 
 </body>
 

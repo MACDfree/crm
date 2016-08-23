@@ -215,7 +215,7 @@
 
   </dependencies>
   <build>
-    <finalName>ssm</finalName>
+    <finalName>crm</finalName>
     <plugins>
       <!-- 编译插件 -->
       <plugin>
@@ -234,7 +234,7 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
         <configuration>
-          <port>80</port>
+          <port>8090</port>
           <path>/</path>
         </configuration>
       </plugin>

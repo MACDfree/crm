@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import me.macd.dto.Message;
 import me.macd.pojo.User;
 import me.macd.service.CustomerService;
+import me.macd.util.ShiroUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -12,6 +13,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +34,8 @@ public class HomeController {
 
     @Inject
     private CustomerService customerService;
+
+    private Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
     /**
      * 登录页面
@@ -103,13 +108,7 @@ public class HomeController {
         String json = gson.toJson(result);
 
         model.addAttribute("json",json);
+        logger.info(ShiroUtil.getSubject().hasRole("管理员")+"");
         return "home";
     }
-
-
-
-
-
-
-
 }

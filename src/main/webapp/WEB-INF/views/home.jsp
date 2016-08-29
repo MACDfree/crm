@@ -53,9 +53,6 @@
                             <div id="myfirstchart" style="height: 250px;"></div>
                         </div>
                     </div>
-
-
-
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

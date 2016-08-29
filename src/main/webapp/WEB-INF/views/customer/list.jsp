@@ -87,6 +87,10 @@
                             <a href="" style="margin-left: 15px;" class="pull-right btn btn-primary btn-xs">
                                 <i class="fa fa-file-excel-o"></i> 导出
                             </a>
+                            <a href="javascript:;" style="margin-left: 15px;" id="delCustomer"
+                               class="pull-right btn btn-success btn-xs">
+                                <i class="fa fa-trash"></i> 删除选定
+                            </a>
                             <a href="javascript:;" id="newCustomer" class="pull-right btn btn-success btn-xs">
                                 <i class="fa fa-plus"></i> 新增
                             </a>
@@ -140,7 +144,7 @@
             </div>
             <div class="modal-body">
                 <form action="" id="newCustForm">
-                    <div class="form-group">
+                    <div class="form-group has-success">
                         <label>客户名称</label>
                         <input type="text" class="form-control" placeholder="" name="custname">
                     </div>
@@ -288,6 +292,29 @@
             });
         });
 
+        $("#cust_table tbody").on("click", ":checkbox", function () {
+            $(this).parent().parent().toggleClass("selected");
+        });
+
+        $("#cust_table thead").on("click", ":checkbox", function () {
+            var cb = $("#cust_table tbody tr :checkbox");
+            if ($(this).prop("checked")) {
+                $("#cust_table tbody tr").addClass("selected");
+                cb.prop("checked", true);
+            } else {
+                $("#cust_table tbody tr").removeClass("selected");
+                cb.prop("checked", false);
+            }
+        });
+
+        $("#delCustomer").click(function () {
+            var selectrows = $("#cust_table").DataTable().rows(".selected").data();
+            if (selectrows.length == 0) {
+                alert("请选择需要删除的记录！");
+            } else {
+                alert(selectrows.length);
+            }
+        });
     });
 </script>
 </body>

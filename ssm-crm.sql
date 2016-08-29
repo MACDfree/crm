@@ -43,7 +43,7 @@ CREATE TABLE `t_customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `custname` varchar(45) DEFAULT NULL COMMENT '客户名称',
   `contact` varchar(45) DEFAULT NULL COMMENT '联系人',
-  `tel` varchar(45) DEFAULT NULL UNIQUE COMMENT '联系电话',
+  `tel` varchar(45) NOT NULL UNIQUE COMMENT '联系电话',
   `address` varchar(100) DEFAULT NULL COMMENT '地址',
   `email` varchar(45) DEFAULT NULL COMMENT '电子邮件',
   `wechar` varchar(45) DEFAULT NULL COMMENT '微信',

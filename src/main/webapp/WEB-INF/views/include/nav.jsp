@@ -12,7 +12,6 @@
         <a class="navbar-brand" href="home"><i class="fa fa-coffee"></i> CRM</a>
     </div>
     <!-- /.navbar-header -->
-
     <ul class="nav navbar-top-links navbar-right">
 
         <li class="dropdown">
@@ -50,7 +49,6 @@
                 </li>
                 <li>
                     <a href="chart.html"><i class="fa fa-bar-chart"></i> 统计</a>
-
                     <!-- /.nav-second-level -->
                 </li>
                 <shiro:hasRole name="管理员">

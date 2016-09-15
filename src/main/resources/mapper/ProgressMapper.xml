@@ -55,6 +55,10 @@
         SELECT * FROM t_progress WHERE custid = #{id} order by id desc
     </select>
 
+    <delete id="delete">
+        DELETE FROM t_progress WHERE custid = #{id}
+    </delete>
+
     <resultMap id="progressMap" type="Progress">
         <id property="id" column="id"/>
         <result property="createtime" column="createtime"/>
@@ -66,6 +70,4 @@
         <association property="customer" column="custid" javaType="Customer" select="me.macd.mapper.CustomerMapper.findById"/>
         <collection property="progressFileList" column="id" ofType="ProgressFile" select="me.macd.mapper.ProgressFileMapper.findByProgressId"/>
     </resultMap>
-
-
 </mapper>

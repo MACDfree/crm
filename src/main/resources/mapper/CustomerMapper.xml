@@ -74,6 +74,4 @@
         UNION SELECT '暂时搁置'
         UNION SELECT '无') AS temp
     </select>
-
-
 </mapper>

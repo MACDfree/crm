@@ -41,15 +41,15 @@ public class CustomerController {
         return "customer/list";
     }
 
-
     /**
      * DataTables加载数据
+     *
      * @return
      */
-    @RequestMapping(value = "/customers.json",method = RequestMethod.GET)
+    @RequestMapping(value = "/customers.json", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> load(HttpServletRequest request) {
-        Map<String,Object> resultMap = Maps.newHashMap();
+    public Map<String, Object> load(HttpServletRequest request) {
+        Map<String, Object> resultMap = Maps.newHashMap();
 
         String draw = request.getParameter("draw");
         Integer start = Integer.valueOf(request.getParameter("start"));
@@ -59,23 +59,23 @@ public class CustomerController {
         String searchState = request.getParameter("seaState");
         String orderColumnIndex = request.getParameter("order[0][column]");
         String orderType = request.getParameter("order[0][dir]");
-        String orderColumnName = request.getParameter("columns["+orderColumnIndex+"][name]");
+        String orderColumnName = request.getParameter("columns[" + orderColumnIndex + "][name]");
 
-        Map<String,Object> param = Maps.newHashMap();
-        param.put("start",start);
-        param.put("length",length);
-        if(StringUtils.isNotEmpty(searchName)) {
+        Map<String, Object> param = Maps.newHashMap();
+        param.put("start", start);
+        param.put("length", length);
+        if (StringUtils.isNotEmpty(searchName)) {
             param.put("seaName", "%" + Strings.toUTF8(searchName) + "%");
         }
-        if(StringUtils.isNotEmpty(searchTel)) {
+        if (StringUtils.isNotEmpty(searchTel)) {
             param.put("seaTel", "%" + Strings.toUTF8(searchTel) + "%");
         }
-        if(StringUtils.isNotEmpty(searchState)) {
-            param.put("seaState",Strings.toUTF8(searchState));
+        if (StringUtils.isNotEmpty(searchState)) {
+            param.put("seaState", Strings.toUTF8(searchState));
         }
-        if(orderColumnName == null || orderType == null) {
-            param.put("orderColumn","id");
-            param.put("orderType","desc");
+        if (orderColumnName == null || orderType == null) {
+            param.put("orderColumn", "id");
+            param.put("orderType", "desc");
         } else {
             param.put("orderColumn", orderColumnName);
             param.put("orderType", orderType);
@@ -85,10 +85,10 @@ public class CustomerController {
         Integer count = customerService.findCustomerCount();
         Integer filteredCount = customerService.findUserCountByParam(param);
 
-        resultMap.put("draw",draw);
-        resultMap.put("recordsTotal",count); //总记录数
-        resultMap.put("recordsFiltered",filteredCount); //过滤出来的数量
-        resultMap.put("data",userList);
+        resultMap.put("draw", draw);
+        resultMap.put("recordsTotal", count); //总记录数
+        resultMap.put("recordsFiltered", filteredCount); //过滤出来的数量
+        resultMap.put("data", userList);
 
         return resultMap;
     }
@@ -96,9 +96,10 @@ public class CustomerController {
 
     /**
      * 添加新客户
+     *
      * @return
      */
-    @RequestMapping(value = "/new",method = RequestMethod.POST)
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
     @ResponseBody
     public String newCust(Customer customer) {
         customerService.saveNewCustomer(customer);
@@ -107,21 +108,23 @@ public class CustomerController {
 
     /**
      * 修改客户
+     *
      * @return
      */
-    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editCust(Customer customer, RedirectAttributes redirectAttributes) {
         customerService.editCustomer(customer);
-        redirectAttributes.addFlashAttribute("message",new Message(Message.SUCCESS,"添加成功"));
-        return "redirect:/customer/"+customer.getId();
+        redirectAttributes.addFlashAttribute("message", new Message(Message.SUCCESS, "添加成功"));
+        return "redirect:/customer/" + customer.getId();
     }
 
 
     /**
      * 查看客户资料
+     *
      * @return
      */
-    @RequestMapping(value = "/{id:\\d+}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id:\\d+}", method = RequestMethod.GET)
     public String viewCustomer(@PathVariable Integer id, Model model) {
         Customer customer = customerService.findCustomerById(id);
         List<User> userList = userService.findAllUser();
@@ -129,63 +132,64 @@ public class CustomerController {
         List<ProgressFile> fileList = progressService.findProgressFileByCustId(id);
         List<Task> taskList = taskService.findunDoneTaskByCustId(id);
 
-        model.addAttribute("customer",customer);
-        model.addAttribute("userList",userList);
-        model.addAttribute("progressList",progressList);
-        model.addAttribute("fileList",fileList);
-        model.addAttribute("taskList",taskList);
+        model.addAttribute("customer", customer);
+        model.addAttribute("userList", userList);
+        model.addAttribute("progressList", progressList);
+        model.addAttribute("fileList", fileList);
+        model.addAttribute("taskList", taskList);
         return "customer/view";
     }
 
     /**
      * 删除客户
      */
-    @RequestMapping(value = "/del/{id:\\d+}",method = RequestMethod.GET)
+    @RequestMapping(value = "/del/{id:\\d+}", method = RequestMethod.GET)
     public String delCustomer(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         customerService.delCustomer(id);
-        redirectAttributes.addFlashAttribute("message",new Message(Message.SUCCESS,"删除成功"));
+        redirectAttributes.addFlashAttribute("message", new Message(Message.SUCCESS, "删除成功"));
         return "redirect:/customer";
-
     }
 
     /**
      * 公开客户
+     *
      * @return
      */
-    @RequestMapping(value = "/public/{id:\\d+}",method = RequestMethod.POST)
+    @RequestMapping(value = "/public/{id:\\d+}", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> publicCustomer(@PathVariable Integer id) {
-        Map<String,Object> result = Maps.newHashMap();
+    public Map<String, Object> publicCustomer(@PathVariable Integer id) {
+        Map<String, Object> result = Maps.newHashMap();
         try {
             customerService.publicCustomer(id);
-            result.put("state","success");
+            result.put("state", "success");
         } catch (NotFoundException ex) {
-            result.put("state","error");
-            result.put("message","客户不存在");
+            result.put("state", "error");
+            result.put("message", "客户不存在");
         } catch (ForbiddenException ex) {
-            result.put("state","error");
-            result.put("message","权限不足");
+            result.put("state", "error");
+            result.put("message", "权限不足");
         }
         return result;
     }
 
     /**
      * 转交客户
+     *
      * @return
      */
     @RequestMapping("/tran/{custId:\\d+}/{userId:\\d+}")
     @ResponseBody
-    public Map<String,Object> tranCustomer(@PathVariable Integer custId,@PathVariable Integer userId) {
-        Map<String,Object> result = Maps.newHashMap();
+    public Map<String, Object> tranCustomer(@PathVariable Integer custId, @PathVariable Integer userId) {
+        Map<String, Object> result = Maps.newHashMap();
         try {
             customerService.tranCustomer(custId, userId);
-            result.put("state","success");
+            result.put("state", "success");
         } catch (NotFoundException ex) {
-            result.put("state","error");
-            result.put("message",ex.getMessage());
+            result.put("state", "error");
+            result.put("message", ex.getMessage());
         } catch (ForbiddenException ex) {
-            result.put("state","error");
-            result.put("message","权限不足");
+            result.put("state", "error");
+            result.put("message", "权限不足");
         }
         return result;
     }
@@ -193,21 +197,21 @@ public class CustomerController {
     /**
      * 新增跟进记录
      */
-    @RequestMapping(value = "/progress/new",method = RequestMethod.POST)
-    public String newProgress(Progress progress,@RequestParam MultipartFile[] file,RedirectAttributes redirectAttributes) {
-        progressService.saveNewProgress(progress,file);
+    @RequestMapping(value = "/progress/new", method = RequestMethod.POST)
+    public String newProgress(Progress progress, @RequestParam MultipartFile[] file, RedirectAttributes redirectAttributes) {
+        progressService.saveNewProgress(progress, file);
 
-        redirectAttributes.addFlashAttribute("message",new Message(Message.SUCCESS,"添加成功"));
-        return "redirect:/customer/"+progress.getCustid();
+        redirectAttributes.addFlashAttribute("message", new Message(Message.SUCCESS, "添加成功"));
+        return "redirect:/customer/" + progress.getCustid();
     }
 
     /**
      * 将待办任务完成
      */
-    @RequestMapping(value = "/change/taskstate",method = RequestMethod.POST)
+    @RequestMapping(value = "/change/taskstate", method = RequestMethod.POST)
     @ResponseBody
-    public String changeTaskState(String taskId,boolean state) {
-        taskService.changeTaskState(taskId,state);
+    public String changeTaskState(String taskId, boolean state) {
+        taskService.changeTaskState(taskId, state);
         return "success";
     }
 }

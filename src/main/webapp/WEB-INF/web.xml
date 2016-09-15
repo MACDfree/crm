@@ -21,7 +21,6 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-
   <!--Apache Shiro Filter-->
   <filter>
     <filter-name>shiroFilter</filter-name>
@@ -42,8 +41,6 @@
     <url-pattern>/druid/*</url-pattern>
   </servlet-mapping>
 
-
-  
   <servlet>
     <servlet-name>mvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -68,6 +65,4 @@
     <error-code>401</error-code>
     <location>/static/html/401.html</location>
   </error-page>
-  
-  
 </web-app>

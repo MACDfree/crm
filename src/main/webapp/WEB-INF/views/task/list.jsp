@@ -166,8 +166,6 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
-
 <!-- jQuery -->
 <script src="/static/js/jquery.min.js"></script>
 

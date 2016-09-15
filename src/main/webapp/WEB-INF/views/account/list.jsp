@@ -186,13 +186,13 @@
                         <div class="col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="role" value="8" class="role"> 管理员
+                                    <input type="checkbox" name="role" value="1" class="role"> 管理员
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="role" value="9" class="role"> 经理
+                                    <input type="checkbox" name="role" value="2" class="role"> 经理
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="role" value="10" class="role"> 普通员工
+                                    <input type="checkbox" name="role" value="3" class="role"> 普通员工
                                 </label>
                             </div>
                         </div>

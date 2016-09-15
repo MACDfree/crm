@@ -93,8 +93,6 @@
             }
             $("#loginForm").submit();
         });
-
-
     });
 </script>
 

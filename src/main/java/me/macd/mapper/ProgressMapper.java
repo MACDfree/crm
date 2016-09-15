@@ -32,4 +32,11 @@ public interface ProgressMapper {
      * @return
      */
     List<Progress> findByCustId(Integer id);
+
+    /**
+     * 根据客户Id删除跟进记录
+     * @param id 客户ID
+     * @return
+     */
+    int delete(Integer id);
 }

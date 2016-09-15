@@ -87,8 +87,8 @@
                             <a href="" style="margin-left: 15px;" class="pull-right btn btn-primary btn-xs">
                                 <i class="fa fa-file-excel-o"></i> 导出
                             </a>
-                            <a href="javascript:;" style="margin-left: 15px;" id="delCustomer"
-                               class="pull-right btn btn-success btn-xs">
+                            <a href="javascript:;" style="margin-left: 15px; display: none" id="delCustomer"
+                               class="pull-right btn btn-warning btn-xs">
                                 <i class="fa fa-trash"></i> 删除选定
                             </a>
                             <a href="javascript:;" id="newCustomer" class="pull-right btn btn-success btn-xs">
@@ -130,7 +130,6 @@
         <!-- /.container-fluid -->
     </div>
     <!-- /#page-wrapper -->
-
 </div>
 <!-- /#wrapper -->
 
@@ -188,7 +187,6 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
 
 <!-- jQuery -->
 <script src="/static/js/jquery.min.js"></script>
@@ -312,6 +310,7 @@
             if (selectrows.length == 0) {
                 alert("请选择需要删除的记录！");
             } else {
+                console.log(selectrows);
                 alert(selectrows.length);
             }
         });

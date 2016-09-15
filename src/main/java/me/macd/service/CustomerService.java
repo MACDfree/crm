@@ -3,6 +3,7 @@ package me.macd.service;
 import me.macd.exception.ForbiddenException;
 import me.macd.exception.NotFoundException;
 import me.macd.mapper.CustomerMapper;
+import me.macd.mapper.ProgressMapper;
 import me.macd.mapper.UserMapper;
 import me.macd.pojo.Customer;
 import me.macd.pojo.User;
@@ -27,6 +28,8 @@ public class CustomerService {
     private CustomerMapper customerMapper;
     @Inject
     private UserMapper userMapper;
+    @Inject
+    private ProgressMapper progressMapper;
 
     /**
      * 保存新客户
@@ -117,7 +120,7 @@ public class CustomerService {
     public void delCustomer(Integer id) {
         if(ShiroUtil.isManager()) {
             //删除跟进记录
-
+            progressMapper.delete(id);
             //删除客户对象
             customerMapper.del(id);
 
